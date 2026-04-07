@@ -13,7 +13,9 @@ public class Main {
             //menu aqui
             System.out.println("1 - Cadastrar aluno");
             System.out.println("2 - Listar alunos");
-            System.out.println("3 - Sair");
+            System.out.println("3 - Buscar aluno");
+            System.out.println("4 - Remover aluno");
+            System.out.println("5 - Sair");
 
             int opcao = sc.nextInt();
 
@@ -49,6 +51,40 @@ public class Main {
             }
 
             else if (opcao == 3) {
+                sc.nextLine();
+
+                System.out.println("Digite o nome do aluno:");
+                String nomeBusca = sc.nextLine();
+
+                boolean encontrado = false;
+
+                for (Aluno a : alunos) {
+                    if (a.getNome().equalsIgnoreCase(nomeBusca)) {
+                        a.apresentar();
+                        encontrado = true;
+                    }
+                }
+                if (!encontrado) {
+                    System.out.println("Aluno não encontrado");
+
+                }
+
+            } else if (opcao == 4) {
+                sc.nextLine();
+
+                System.out.println("Digite o nome do aluno para remover:");
+                String nomeRemover = sc.nextLine();
+
+                boolean removido = alunos.removeIf(a -> a.getNome().equalsIgnoreCase(nomeRemover));
+
+                if (removido) {
+                    System.out.println("Aluno removido");
+                } else {
+                    System.out.println("Aluno não encontrado");
+                }
+            }
+            else if (opcao == 5) {
+                sc.nextLine();
                 System.out.println("Saindo...");
                 break;
             }
