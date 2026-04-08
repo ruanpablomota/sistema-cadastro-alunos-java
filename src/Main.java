@@ -9,8 +9,12 @@ public class Main {
 
         ArrayList<Aluno> alunos = new ArrayList<>();
 
+
+
         while (true) {
             //menu aqui
+            System.out.println("\n==== SISTEMA DE ALUNOS ====");
+
             System.out.println("1 - Cadastrar aluno");
             System.out.println("2 - Listar alunos");
             System.out.println("3 - Buscar aluno");
@@ -23,23 +27,43 @@ public class Main {
                 sc.nextLine(); // limpar buffer
 
                 System.out.println("Digite o nome:");
-                String nome = sc.nextLine();
+                String nome = sc.nextLine().trim();
 
-                System.out.println("Digite o ano de nascimento:");
-                int ano = sc.nextInt();
+                //VAlIDAÇÃO DE DUPLICADO
+                boolean existe = alunos.stream()
+                        .anyMatch(a -> a.getNome().equalsIgnoreCase(nome));
+                if (existe) {
+                    System.out.println("Aluno já cadastrado!");
+                } else {
+                    int ano;
+                    while (true) {
+                        System.out.println("Digite o ano de nascimento: ");
+                        if (sc.hasNextInt()) {
+                            ano = sc.nextInt();
+                            break;
+                        } else {
+                            System.out.println("Digite um número válido!");
+                            sc.next(); // limpa entrada inválida
+                        }
+                    }
 
-                System.out.println("Digite o mes:");
-                int mes = sc.nextInt();
+                    System.out.println("Digite o mês:");
+                    int mes = sc.nextInt();
 
-                System.out.println("Digite o dia:");
-                int dia = sc.nextInt();
+                    System.out.println("Digite o dia:");
+                    int dia = sc.nextInt();
 
-                Aluno aluno = new Aluno(nome, LocalDate.of(ano, mes, dia));
-                alunos.add(aluno);
+                    Aluno aluno = new Aluno(nome, LocalDate.of(ano, mes, dia));
+                    alunos.add(aluno);
 
-                System.out.println("Aluno cadastrado!");
+                    System.out.println("Aluno cadastrado!");
+                }
+
+                sc.nextLine();
+                System.out.println("\nPressione ENTER para continuar...");
+                sc.nextLine();
+
             }
-
             else if (opcao == 2) {
                 if (alunos.isEmpty()) {
                     System.out.println("Nenhum aluno castrado.");
@@ -48,9 +72,7 @@ public class Main {
                         a.apresentar();
                     }
                 }
-            }
-
-            else if (opcao == 3) {
+            } else if (opcao == 3) {
                 sc.nextLine();
 
                 System.out.println("Digite o nome do aluno:");
@@ -69,6 +91,9 @@ public class Main {
 
                 }
 
+                System.out.println("\nPressione ENTER para continuar...");
+                sc.nextLine();
+
             } else if (opcao == 4) {
                 sc.nextLine();
 
@@ -82,13 +107,15 @@ public class Main {
                 } else {
                     System.out.println("Aluno não encontrado");
                 }
-            }
-            else if (opcao == 5) {
+
+                System.out.println("\nPressione ENTER para continuar...");
+                sc.nextLine();
+
+            } else if (opcao == 5) {
                 sc.nextLine();
                 System.out.println("Saindo...");
                 break;
             }
-
             else {
                 System.out.println("Opção inválida");
             }

@@ -17,7 +17,7 @@ public class Aluno {
     }
 
     public int getIdade() {
-        return idade;
+        return Period.between(dataNacimento, LocalDate.now()).getYears();
     }
 
     //SETTERS
@@ -31,7 +31,9 @@ public class Aluno {
     }
 
     public void apresentar(){
-        System.out.println("Olá, meu nome é " + nome + " e tenho " + calcularIdade() + " anos.");
+        System.out.println("Nome: " + nome);
+        System.out.println("Idade " + getIdade());
+        System.out.println("--------------------");
     }
 
     public int calcularIdade () {
